@@ -1,29 +1,44 @@
 // RegisterForm.js
 import React, { useState } from 'react';
 import '../styles/register.css';
+import axios from 'axios';
 
 const RegisterForm = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [formData, setFormData] = useState({})
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
 
+    const handleChange =(e)=>{
+        setFormData({...formData,[e.target.id]:e.target.value})
+    }
+
+
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        console.log('formData', formData)
+        axios.post("http://localhost:5003/user/add-new-user",formData).then(res=>{
+            window.location.href="/login";
+        })
+    }
+
     return (
         <div className="register-wrapper">
             <h2>Register</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="input-group-register">
-                    <label htmlFor="username">Username</label>
-                    <input type="text" id="username" placeholder="Username" />
+                    <label htmlFor="username" >Username</label>
+                    <input type="text" id="username" placeholder="Username" onChange={handleChange} />
                 </div>
                 <div className="input-group-register">
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="Email" />
+                    <input type="email" id="email" placeholder="Email" onChange={handleChange}/>
                 </div>
                 <div className="input-group-register">
                     <label htmlFor="password">Password</label>
-                    <input type={passwordVisible ? "text" : "password"} id="password" placeholder="Password" />
+                    <input type={passwordVisible ? "text" : "password"} id="password" placeholder="Password" onChange={handleChange} />
                     <button type="button" onClick={togglePasswordVisibility} className="show-password">
                         {passwordVisible ? 'Hide Password' : 'Show Password'}
                     </button>

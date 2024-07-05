@@ -1,21 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LoginForm from './components/Login';
-import RegisterForm from './components/Register';
-import Header from './components/Header';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginForm from "./components/Login";
+import RegisterForm from "./components/Register";
+import Header from "./components/Header";
+import CreateEditPost from "./components/CreateEditPost";
+import HomePage from "./components/HomePage";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <Header />
+      <Header />
       <Routes>
         <Route exact path="/login" Component={LoginForm}></Route>
-        <Route exact path='/register' Component={RegisterForm} /></Routes></BrowserRouter>
+        <Route exact path="/register" Component={RegisterForm} />
+        <Route exact path="/create" Component={CreateEditPost} />
+        <Route exact path="/edit/:post_id" Component={CreateEditPost} />
+        <Route exact path="/" Component={HomePage} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
